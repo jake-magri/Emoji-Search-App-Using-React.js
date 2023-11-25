@@ -101,11 +101,11 @@ const App = () => {
       ) : (
         <div>
           {/* Display count and total emojis information */}
-          <p>
+          <p className="emoji-info">
             Displaying {Math.min(displayCount, emojis.length)} of {emojis.length} emojis{' '}
           </p>
           {/* Emoji list */}
-          <ul>
+          <ul className="emoji-list">
             {displayedEmojis.map((emoji) => (
               <li key={emoji.slug}>
                 {/* Individual emoji item */}
@@ -117,7 +117,7 @@ const App = () => {
             ))}
           </ul>
           {/* Show More and Show Less buttons */}
-          <p>
+          <p className="button-container">
             <button onClick={handleShowMore}>Show More</button>{' '}
             <button onClick={handleShowLess}>Show Less</button>
           </p>

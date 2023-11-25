@@ -15,58 +15,63 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--main-background-color); /* Webpage background as foundation */
+  background-color: var(--main-background-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Set minimum height to cover the viewport */
+  min-height: 100vh;
 }
 
 .App {
   text-align: center;
   font-family: 'Arial', sans-serif;
-  background-color: var(--list-border-color); /* Match with button text color for consistency */
+  background-color: var(--list-border-color);
   border: 10px solid var(--button-background-color);
-  border-radius: 10px; /* Add border-radius for a softer appearance */
-  max-width: 600px; /* Set maximum width for the app */
-  width: 100%; /* Make the app responsive */
-  margin-top: 20px; /* Adjust the top margin */
+  border-radius: 10px;
+  max-width: 800px; /* Adjusted maximum width for larger screens */
+  width: 90%; /* Slightly narrower for better readability on larger screens */
+  margin: 20px auto;
+  padding: 20px;
 }
 
 h1 {
   color: var(--header-text-color);
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
 form {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 input {
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  background-color: var(--search-bar-background-color); 
+  width: 70%;
+  background-color: var(--search-bar-background-color);
   transition: background-color 0.3s ease;
   &:focus {
-    outline: 1px solid var(--input-outline-color); 
+    outline: 1px solid var(--input-outline-color);
   }
 }
 
 button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
-  background-color: var(--button-background-color); 
-  color: var(--button-text-color); 
+  width: 28%;
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   &:hover {
-    background-color: var(--hovered-background-color); 
-    color: var(--button-text-color); 
+    background-color: var(--hovered-background-color);
+    color: var(--button-text-color);
   }
   &:active {
-    background-color: var(--active-background-color); 
-    color: var(--button-text-color); 
-    outline: 1px solid var(--input-outline-color); 
+    background-color: var(--active-background-color);
+    color: var(--button-text-color);
+    outline: 1px solid var(--input-outline-color);
   }
 }
 
@@ -74,16 +79,17 @@ label {
   display: block;
   margin-top: 20px;
   font-size: 18px;
-  color: var(--label-text-color); 
+  color: var(--label-text-color);
 }
 
 select {
   padding: 10px;
   font-size: 16px;
-  background-color: var(--batch-size-dropdown-background-color); 
+  width: 100%; /* Make select full width */
+  background-color: var(--batch-size-dropdown-background-color);
   transition: background-color 0.3s ease;
   &:focus {
-    outline: 1px solid var(--input-outline-color); 
+    outline: 1px solid var(--input-outline-color);
   }
 }
 
@@ -93,12 +99,12 @@ ul {
 }
 
 li {
-  border: 1px solid var(--list-border-color); 
+  border: 1px solid var(--list-border-color);
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
   text-align: left;
-  background-color: #9EA9A3; /* Custom background color for list items */
+  background-color: #9EA9A3;
 }
 
 span {
@@ -116,3 +122,4 @@ p {
     width: 100%;
   }
 }
+
