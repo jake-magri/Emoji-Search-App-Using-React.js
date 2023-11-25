@@ -1,32 +1,40 @@
 :root {
-  --main-background-color: #C0A672; /* Body background color */
-  --header-text-color: #F4B266; /* Heading text color */
-  --button-background-color: #AFD0BF; /* Button background color */
-  --button-text-color: #E2EFDE; /* Button text color */
-  --label-text-color: var(--header-text-color); /* Reuse heading text color for labels */
-  --list-border-color: #808F87; /* List border color */
-  --search-bar-background-color: var(--button-text-color); /* Reuse button text color for search bar background */
-  --batch-size-dropdown-background-color: var(--search-bar-background-color); /* Reuse search bar background color for batch size dropdown */
-  --input-outline-color: #cde7da; /* Outline color for input */
-  --hovered-background-color: #bdd8ca; /* Background color on button hover */
-  --active-background-color: #A4C1B2; /* Background color when button is pressed */
+  --main-background-color: #C0A672; 
+  --header-text-color: #F4B266; 
+  --button-background-color: #AFD0BF; 
+  --button-text-color: #E2EFDE; 
+  --label-text-color: var(--header-text-color); 
+  --list-border-color: #808F87; 
+  --search-bar-background-color: var(--button-text-color); 
+  --batch-size-dropdown-background-color: var(--search-bar-background-color); 
+  --input-outline-color: #cde7da; 
+  --hovered-background-color: #bdd8ca; 
+  --active-background-color: #A4C1B2; 
 }
 
 body {
   margin: 0;
   padding: 0;
   background-color: var(--main-background-color); /* Webpage background as foundation */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Set minimum height to cover the viewport */
 }
 
 .App {
   text-align: center;
   font-family: 'Arial', sans-serif;
   background-color: var(--list-border-color); /* Match with button text color for consistency */
-  border: 10px solid var(--button-background-color); /* Contrast backgrounds, possibly match with heading text color for uniformity*/
+  border: 10px solid var(--button-background-color);
+  border-radius: 10px; /* Add border-radius for a softer appearance */
+  max-width: 600px; /* Set maximum width for the app */
+  width: 100%; /* Make the app responsive */
+  margin-top: 20px; /* Adjust the top margin */
 }
 
 h1 {
-  color: var(--header-text-color); /* Apply heading text color */
+  color: var(--header-text-color);
 }
 
 form {
@@ -36,29 +44,29 @@ form {
 input {
   padding: 10px;
   font-size: 16px;
-  background-color: var(--search-bar-background-color); /* Apply search bar background color */
+  background-color: var(--search-bar-background-color); 
   transition: background-color 0.3s ease;
   &:focus {
-    outline: 1px solid var(--input-outline-color); /* Match with button background for consistency */
+    outline: 1px solid var(--input-outline-color); 
   }
 }
 
 button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: var(--button-background-color); /* Apply button background color for consistency */
-  color: var(--button-text-color); /* Apply button text color for consistency */
+  background-color: var(--button-background-color); 
+  color: var(--button-text-color); 
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   &:hover {
-    background-color: var(--hovered-background-color); /* Match with button background for hover effect */
-    color: var(--button-text-color); /* Apply button text color for hover effect */
+    background-color: var(--hovered-background-color); 
+    color: var(--button-text-color); 
   }
   &:active {
-    background-color: var(--active-background-color); /* Match with button background for active effect */
-    color: var(--button-text-color); /* Apply button text color for active effect */
-    outline: 1px solid var(--input-outline-color); /* Match with button background for consistency */
+    background-color: var(--active-background-color); 
+    color: var(--button-text-color); 
+    outline: 1px solid var(--input-outline-color); 
   }
 }
 
@@ -66,16 +74,16 @@ label {
   display: block;
   margin-top: 20px;
   font-size: 18px;
-  color: var(--label-text-color); /* Apply label text color */
+  color: var(--label-text-color); 
 }
 
 select {
   padding: 10px;
   font-size: 16px;
-  background-color: var(--batch-size-dropdown-background-color); /* Apply batch size dropdown background color */
+  background-color: var(--batch-size-dropdown-background-color); 
   transition: background-color 0.3s ease;
   &:focus {
-    outline: 1px solid var(--input-outline-color); /* Match with button background for consistency */
+    outline: 1px solid var(--input-outline-color); 
   }
 }
 
@@ -85,7 +93,7 @@ ul {
 }
 
 li {
-  border: 1px solid var(--list-border-color); /* Match with heading text color for consistency */
+  border: 1px solid var(--list-border-color); 
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
@@ -98,7 +106,7 @@ span {
 }
 
 p {
-  color: var(--label-text-color); /* Apply label text color for consistency */
+  color: var(--label-text-color);
 }
 
 @media (max-width: 600px) {
