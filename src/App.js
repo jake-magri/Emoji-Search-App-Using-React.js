@@ -57,8 +57,15 @@ const App = () => {
         } else {
           setEmojis(filteredEmojis);
         }
+      } else if (typeof response.data === 'object') {
+        console.log('User query did not yield any matches.');
+        setEmojis([]);
+        setDisplayedEmojis([]);
+        setError('No emojis found.');
       } else {
         console.error('Invalid response format. Expected an array.');
+        console.log('Actual Type of API Response:', typeof response.data);
+        console.log('Actual API Response:', response.data);
         setError('Invalid response format. Expected an array.');
       }
     } catch (error) {
