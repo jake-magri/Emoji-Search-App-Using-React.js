@@ -17,12 +17,58 @@ const App = () => {
     setSearchQueryInput(event.target.value);
   };
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    setSearchQuery(searchQueryInput);
-    setDisplayCount(Math.min(5, emojis.length));
-    fetchEmojis();
+  const handleSearchSubmit = async (event) => {
+  event.preventDefault();
+  setSearchQuery(searchQueryInput);
+};
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      let apiUrl = `https://emoji-api.com/emojis?access_key=${apiKey}`;
+
+      if (searchQuery.trim() !== '') {
+        apiUrl += `&search=${searchQuery}`;
+      }
+
+      const response = await axios.get(apiUrl);
+
+      console.log('API Response:', response.data);
+      console.log('Search Query:', searchQuery);
+
+      if (Array.isArray(response.data)) {
+        const filteredEmojis = filterEmojis(response.data, searchQuery);
+        console.log('Filtered Emojis:', filteredEmojis);
+
+        if (filteredEmojis.length === 0) {
+          console.error('No emojis found.');
+          setEmojis([]);
+          setDisplayedEmojis([]);
+          setError('No emojis found.');
+        } else {
+          setEmojis(filteredEmojis);
+          setDisplayedEmojis(filteredEmojis.slice(0, displayCount));
+        }
+      } else {
+        console.error('Invalid response format. Expected an array.');
+        setError('Invalid response format. Expected an array.');
+      }
+    } catch (error) {
+      console.error('Error fetching emojis:', error);
+      setError('Error fetching emojis. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // Fetch data whenever the component mounts or when the searchQuery changes
+  fetchData();
+  setDisplayCount(5); // Reset display count to default when a new search is initiated
+}, [searchQuery, apiKey, displayCount]);
+
 
   const handleShowMore = () => {
     setDisplayCount((prevCount) => Math.min(prevCount + 5, emojis.length));
@@ -36,23 +82,26 @@ const App = () => {
     try {
       setLoading(true);
       setError(null);
-
+  
       const response = await axios.get(
-        `https://emoji-api.com/emojis?search=${searchQueryInput}&access_key=${apiKey}`
+        `https://emoji-api.com/emojis?search=${searchQuery}&access_key=${apiKey}`
       );
-
-      console.log('API Response:', response.data); // Log the response for debugging purposes
-
+  
+      console.log('API Response:', response.data);
+      console.log('Search Query:', searchQuery);
+  
       if (Array.isArray(response.data)) {
-        const filteredEmojis = filterEmojis(response.data, searchQueryInput);
-        setEmojis(filteredEmojis);
-        setDisplayedEmojis(filteredEmojis.slice(0, displayCount));
-
-        // Check if there are no results and set an error message
+        const filteredEmojis = filterEmojis(response.data, searchQuery);
+        console.log('Filtered Emojis:', filteredEmojis);
+  
         if (filteredEmojis.length === 0) {
-          setError('Your search did not return any results.');
+          console.error('No emojis found.');
+          setEmojis([]);
+          setDisplayedEmojis([]);
+          setError('No emojis found.');
         } else {
-          setError(null);
+          setEmojis(filteredEmojis);
+          setDisplayedEmojis(filteredEmojis.slice(0, displayCount));
         }
       } else {
         console.error('Invalid response format. Expected an array.');
@@ -60,11 +109,11 @@ const App = () => {
       }
     } catch (error) {
       console.error('Error fetching emojis:', error);
-      setError(`Error fetching emojis. Status: ${error.response?.status || 'Unknown'}`);
+      setError('Error fetching emojis. Please try again.');
     } finally {
       setLoading(false);
     }
-  }, [searchQueryInput, displayCount, apiKey]);
+  }, [searchQuery, apiKey, displayCount, setEmojis, setDisplayedEmojis, setError]);
 
   const filterEmojis = (emojis, query) => {
     const filteredEmojis = emojis.filter((emoji) => {
@@ -76,7 +125,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchEmojis();
+    // Check if the search query is not empty before fetching emojis
+    if (searchQuery.trim() !== '') {
+      fetchEmojis();
+    }
   }, [searchQuery, fetchEmojis]);
 
   useEffect(() => {
@@ -100,33 +152,29 @@ const App = () => {
         <p>Loading emojis...</p>
       ) : (
         <div>
+          <p className="emoji-info">
+            Displaying {Math.min(displayCount, emojis.length)} of {emojis.length} emojis{' '}
+          </p>
           {error ? (
             <p className="error-message">{error}</p>
           ) : (
-            <div>
-              <p className="emoji-info">
-                Displaying {Math.min(displayCount, emojis.length)} of {emojis.length} emojis{' '}
-              </p>
-              <ul className="emoji-list">
-                {displayedEmojis.map((emoji) => (
-                  <li key={emoji.slug}>
-                    <span>Emoji: </span>
-                    <span>{emoji.character}</span>
-                    <span> Name: </span>
-                    <span>{emoji.unicodeName}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="button-container">
-                <button onClick={handleShowMore}>Show More</button>{' '}
-                <button onClick={handleShowLess}>Show Less</button>
-              </p>
-            </div>
+            <ul className="emoji-list">
+              {displayedEmojis.map((emoji) => (
+                <li key={emoji.slug}>
+                  <span>Emoji: </span>
+                  <span>{emoji.character}</span>
+                  <span> Name: </span>
+                  <span>{emoji.unicodeName}</span>
+                </li>
+              ))}
+            </ul>
           )}
+          <p className="button-container">
+            <button onClick={handleShowMore}>Show More</button>{' '}
+            <button onClick={handleShowLess}>Show Less</button>
+          </p>
         </div>
       )}
-
-      {displayedEmojis.length === 0 && !loading && !error && <p>No emojis found</p>}
     </div>
   );
 };
