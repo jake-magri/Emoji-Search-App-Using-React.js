@@ -1,3 +1,4 @@
+// components/EmojiList.js
 import React from 'react';
 
 const EmojiList = ({ emojis, displayedEmojis, displayCount, handleShowMore, handleShowLess, error }) => {
