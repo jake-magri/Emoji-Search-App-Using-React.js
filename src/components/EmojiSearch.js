@@ -82,11 +82,6 @@ const EmojiSearch = ({ searchQuery, setSearchQuery, apiKey }) => {
     }
   }, [formSubmitted, fetchEmojis, searchQuery, apiKey]);
 
-  /*useEffect(() => {
-    fetchEmojis();
-    setDisplayCount(5);
-  }, [searchQuery, apiKey, fetchEmojis]); */
-
   useEffect(() => {
     setDisplayedEmojis(emojis.slice(0, displayCount));
   }, [displayCount, emojis]);
