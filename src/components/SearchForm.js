@@ -8,7 +8,7 @@ const SearchForm = ({ searchQuery, handleSearchChange, handleSearchSubmit }) => 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleSearchSubmit();
+    handleSearchSubmit(event);
   };
 
   return (

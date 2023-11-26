@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import EmojiList from './EmojiList';
+import SearchForm from './SearchForm';
 
 const EmojiSearch = ({ searchQuery, setSearchQuery, apiKey }) => {
   const [emojis, setEmojis] = useState([]);
@@ -96,15 +97,11 @@ const EmojiSearch = ({ searchQuery, setSearchQuery, apiKey }) => {
 
   return (
     <div>
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="text"
-          placeholder="Search emojis"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <button type="submit">Search</button>
-      </form>
+      <SearchForm
+        searchQuery={searchQuery}
+        handleSearchChange={handleSearchChange}
+        handleSearchSubmit={handleSearchSubmit}
+      />
       {loading ? (
         <p>Loading emojis...</p>
       ) : (
